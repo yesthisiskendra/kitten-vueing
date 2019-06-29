@@ -1,4 +1,53 @@
-//Add a description to the data object with the value "A pair of warm, fuzzy socks". Then display the description using an expression in an p element, underneath the h1.
+Vue.component("kitten-review", {
+  template: `
+    <form class="review-form" @submit.prevent="onSubmit">
+        <p>
+            <label for="name">Name:</label>
+            <input id="name" v-model="name" placeholder="name">
+        </p>
+        
+        <p>
+            <label for="review">Review:</label>      
+            <textarea id="review" v-model="review"></textarea>
+        </p>
+        
+        <p>
+            <label for="rating">Rating:</label>
+            <select id="rating" v-model.number="rating">
+            <option>5</option>
+            <option>4</option>
+            <option>3</option>
+            <option>2</option>
+            <option>1</option>
+            </select>
+        </p>
+            
+        <p>
+            <input type="submit" value="Submit">  
+        </p>    
+
+    </form>
+    `,
+  data() {
+    return {
+      name: null,
+      review: null,
+      rating: null
+    };
+  },
+  methods: {
+    onSubmit() {
+      let productReview = {
+        name: this.name,
+        review: this.review,
+        rating: this.rating
+      };
+      this.$emit("review-submitted", productReview);
+      (this.name = null), (this.review = null), (this.rating = null);
+    }
+  }
+});
+
 Vue.component("kitten-details", {
   props: {
     hobbies: {
@@ -52,6 +101,8 @@ Vue.component("kitten-component", {
                 :disabled="!adoptable"
                 :class="{ disabledButton: !adoptable }"> Remove from Basket 
             </button>
+            
+            <kitten-review @review-submitted="addReview"></kitten-review>
 
         </div>
     </div>`,
@@ -77,7 +128,7 @@ Vue.component("kitten-component", {
           variantColor: "green"
         }
       ],
-      basket: 0
+      reviews: []
     };
   },
   methods: {
@@ -95,6 +146,9 @@ Vue.component("kitten-component", {
     },
     updateColor(index) {
       this.selectedVariant = index;
+    },
+    addReview(productReview) {
+      this.reviews.push(productReview);
     }
   },
   computed: {
