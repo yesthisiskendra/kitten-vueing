@@ -1,40 +1,56 @@
 //Add a description to the data object with the value "A pair of warm, fuzzy socks". Then display the description using an expression in an p element, underneath the h1.
-
+Vue.component("kitten-details", {
+  props: {
+    hobbies: {
+      type: Array,
+      required: true
+    }
+  },
+  template: `
+        <ul>
+            <li v-for="hobby in hobbies">{{ hobby }}</li>
+        </ul>`
+});
 Vue.component("kitten-component", {
-  template: `    <div class="product">
-        
-  <div class="product-image">
-      <img :src="image" />
-  </div>
+  props: {
+    catperson: {
+      type: Boolean,
+      required: true
+    }
+  },
+  template: `    
+    <div class="product">      
+        <div class="product-image">
+            <img :src="image" />
+        </div>
+        <div class="product-info">
+            <h1>{{ cat }}</h1>
+            <p>{{ description }}</p>
+            <p v-if="adoptable">You can adopt me!</p>
+            <p v-else="adoptable">I have a forever home!</p>
+            <p> User is catperson: {{ catperson }}</p>
+            <a :href="link" target="_blank">Find me and my siblings on Instagram!</a>
 
-  <div class="product-info">
-      <h1>{{ cat }}</h1>
-      <p>{{ description }}</p>
-      <p v-if="adoptable">You can adopt me!</p>
-      <p v-else="adoptable">I have a forever home!</p>
-      <a :href="link" target="_blank">Find me and my siblings on Instagram!</a>
+            <h4>Hobbies:</h4>
+            <kitten-details :hobbies="hobbies"></kitten-details>
 
-      <h4>Hobbies:</h4>
-      <ul>
-          <li v-for="hobby in hobbies">{{ hobby }}</li>
-      </ul>
 
-    <div class="color-box">
-      <div v-for="(variant, index) in variants" 
-          :key="variant.variantId"
-          :style="{ backgroundColor: variant.variantColor }"
-          @mouseover="updateColor(index)">
-      </div>
-      </div>
+            <div class="color-box">
+            <div v-for="(variant, index) in variants" 
+                :key="variant.variantId"
+                :style="{ backgroundColor: variant.variantColor }"
+                @mouseover="updateColor(index)">
+            </div>
+            </div>
 
-      <button v-on:click="addToBasket"
-          :disabled="!adoptable"
-          :class="{ disabledButton: !adoptable }"> Add to Basket </button>
-      <div class="cart">
-          <p>Basket({{basket}})</p>
-      </div>
-  </div>
-</div>`,
+            <button v-on:click="addToBasket"
+                :disabled="!adoptable"
+                :class="{ disabledButton: !adoptable }"> Add to Basket </button>
+            <div class="cart">
+                <p>Basket({{basket}})</p>
+            </div>
+        </div>
+    </div>`,
   data() {
     return {
       cat: "Phyllis",
@@ -75,5 +91,8 @@ Vue.component("kitten-component", {
   }
 });
 var app = new Vue({
-  el: "#app"
+  el: "#app",
+  data: {
+    catperson: true
+  }
 });
