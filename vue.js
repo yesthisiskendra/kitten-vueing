@@ -1,3 +1,41 @@
+Vue.component("review-tabs", {
+  props: {
+    reviews: {
+      type: Array,
+      required: true
+    }
+  },
+  template: `
+        <div>
+            <span 
+                class="tab"
+                :class="{ activeTab: selectedTab === tab }" 
+                v-for="(tab, index) in tabs" 
+                :key="index" 
+                @click="selectedTab = tab">
+                {{ tab }}</span>
+            <div v-show="selectedTab ==='Reviews'">
+                <p v-if="!reviews.length">No reviews yet</p>
+                <ul>
+                    <li v-for="review in reviews">
+                        <p>{{ review.name }}</p>
+                        <p>Review: {{ review.review }}</p>
+                        <p>Rating: {{ review.rating }}</p>
+                    </li>
+                </ul>
+            </div>
+            <div v-show="selectedTab === 'Make a Review'">
+            <kitten-review @review-submitted="addReview"></kitten-review>
+            </div>
+        </div>
+    `,
+  data() {
+    return {
+      tabs: ["Reviews", "Make a Review"],
+      selectedTab: "Reviews"
+    };
+  }
+});
 Vue.component("kitten-review", {
   template: `
     <form class="review-form" @submit.prevent="onSubmit">
@@ -127,18 +165,8 @@ Vue.component("kitten-component", {
                 :class="{ disabledButton: !adoptable }"> Remove from Basket 
             </button>
             
-            <div>
             <h2> Reviews </h2>
-            <p v-if="!reviews.length">No reviews yet</p>
-            <ul>
-                <li v-for="review in reviews">
-                    <p>{{ review.name }}</p>
-                    <p>Review: {{ review.review }}</p>
-                    <p>Rating: {{ review.rating }}</p>
-                </li>
-            </ul>
-            </div>
-            <kitten-review @review-submitted="addReview"></kitten-review>
+            <review-tabs :reviews="reviews"></review-tabs>
 
         </div>
     </div>`,
