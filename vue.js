@@ -20,5 +20,10 @@ var app = new Vue({
       }
     ],
     basket: 0
+  },
+  methods: {
+    addToBasket: function() {
+      this.basket += 1;
+    }
   }
 });
