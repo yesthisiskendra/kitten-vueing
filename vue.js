@@ -45,7 +45,13 @@ Vue.component("kitten-component", {
 
             <button v-on:click="addToBasket"
                 :disabled="!adoptable"
-                :class="{ disabledButton: !adoptable }"> Add to Basket </button>
+                :class="{ disabledButton: !adoptable }"> Add to Basket 
+            </button>
+
+            <button v-on:click="removeFromBasket"
+                :disabled="!adoptable"
+                :class="{ disabledButton: !adoptable }"> Remove from Basket 
+            </button>
 
         </div>
     </div>`,
@@ -76,9 +82,14 @@ Vue.component("kitten-component", {
   },
   methods: {
     addToBasket() {
-      //   this.basket += 1;
       this.$emit(
         "add-to-basket",
+        this.variants[this.selectedVariant].variantId
+      );
+    },
+    removeFromBasket() {
+      this.$emit(
+        "remove-from-basket",
         this.variants[this.selectedVariant].variantId
       );
     },
@@ -102,6 +113,14 @@ var app = new Vue({
     updateBasket(id) {
       //   this.basket += 1;
       this.basket.push(id);
+    },
+    removeItem(id) {
+      for (var i = this.basket.length - 1; i >= 0; i--) {
+        console.log("ID!", id);
+        if (this.basket[i] === id) {
+          this.basket.splice(i, 1);
+        }
+      }
     }
   }
 });
