@@ -12,11 +12,13 @@ var app = new Vue({
     variants: [
       {
         variantId: 123,
-        variantPhoto: "Near"
+        variantView: "Near",
+        variantImage: "./assets/phyllis_1.JPG"
       },
       {
         variantId: 124,
-        variantPhoto: "Far"
+        variantView: "Far",
+        variantImage: "./assets/phyllis_2.JPG"
       }
     ],
     basket: 0
@@ -24,6 +26,9 @@ var app = new Vue({
   methods: {
     addToBasket: function() {
       this.basket += 1;
+    },
+    updatePhoto: function(variantImage) {
+      this.image = variantImage;
     }
   }
 });

@@ -23,7 +23,7 @@
             </ul>
 
             <div v-for="variant in variants" :key="variant.variantId">
-                <p>{{ variant.variantPhoto }}</p>
+                <p @mouseover="updatePhoto(variant.variantImage)">{{ variant.variantView }}</p>
             </div>
 
             <button v-on:click="addToBasket"> Add to Basket </button>
