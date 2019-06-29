@@ -25,6 +25,11 @@
             <div v-for="variant in variants" :key="variant.variantId">
                 <p>{{ variant.variantPhoto }}</p>
             </div>
+
+            <button v-on:click="basket += 1"> Add to Basket </button>
+            <div class="cart">
+                <p>Basket({{basket}})</p>
+            </div>
         </div>
     </div>
 </div>

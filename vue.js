@@ -18,6 +18,7 @@ var app = new Vue({
         variantId: 124,
         variantPhoto: "Far"
       }
-    ]
+    ],
+    basket: 0
   }
 });
