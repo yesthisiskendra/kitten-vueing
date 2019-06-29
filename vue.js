@@ -1,38 +1,70 @@
 //Add a description to the data object with the value "A pair of warm, fuzzy socks". Then display the description using an expression in an p element, underneath the h1.
 
 Vue.component("kitten-component", {
-  template: `<h1>I AM A KITTEN!</h1>`
-});
-var app = new Vue({
-  el: "#app",
-  data: {
-    cat: "Phyllis",
-    description: "Female Kitten",
-    selectedVariant: 0,
-    link: "https://www.instagram.com/michaelscottkittenco/",
-    adoptable: true,
-    hobbies: ["climbing", "napping", "exploring"],
-    variants: [
-      {
-        variantId: 123,
-        variantView: "Near",
-        variantImage: "./assets/phyllis_1.JPG",
-        variantColor: "blue"
-      },
-      {
-        variantId: 124,
-        variantView: "Far",
-        variantImage: "./assets/phyllis_2.JPG",
-        variantColor: "green"
-      }
-    ],
-    basket: 0
+  template: `    <div class="product">
+        
+  <div class="product-image">
+      <img :src="image" />
+  </div>
+
+  <div class="product-info">
+      <h1>{{ cat }}</h1>
+      <p>{{ description }}</p>
+      <p v-if="adoptable">You can adopt me!</p>
+      <p v-else="adoptable">I have a forever home!</p>
+      <a :href="link" target="_blank">Find me and my siblings on Instagram!</a>
+
+      <h4>Hobbies:</h4>
+      <ul>
+          <li v-for="hobby in hobbies">{{ hobby }}</li>
+      </ul>
+
+    <div class="color-box">
+      <div v-for="(variant, index) in variants" 
+          :key="variant.variantId"
+          :style="{ backgroundColor: variant.variantColor }"
+          @mouseover="updateColor(index)">
+      </div>
+      </div>
+
+      <button v-on:click="addToBasket"
+          :disabled="!adoptable"
+          :class="{ disabledButton: !adoptable }"> Add to Basket </button>
+      <div class="cart">
+          <p>Basket({{basket}})</p>
+      </div>
+  </div>
+</div>`,
+  data() {
+    return {
+      cat: "Phyllis",
+      description: "Female Kitten",
+      selectedVariant: 0,
+      link: "https://www.instagram.com/michaelscottkittenco/",
+      adoptable: true,
+      hobbies: ["climbing", "napping", "exploring"],
+      variants: [
+        {
+          variantId: 123,
+          variantView: "Near",
+          variantImage: "./assets/phyllis_1.JPG",
+          variantColor: "blue"
+        },
+        {
+          variantId: 124,
+          variantView: "Far",
+          variantImage: "./assets/phyllis_2.JPG",
+          variantColor: "green"
+        }
+      ],
+      basket: 0
+    };
   },
   methods: {
     addToBasket() {
       this.basket += 1;
     },
-    updatePhoto(index) {
+    updateColor(index) {
       this.selectedVariant = index;
     }
   },
@@ -41,4 +73,7 @@ var app = new Vue({
       return this.variants[this.selectedVariant].variantImage;
     }
   }
+});
+var app = new Vue({
+  el: "#app"
 });

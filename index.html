@@ -6,39 +6,7 @@
 <div class="nav-bar"></div>
 <div id="app">
     <kitten-component></kitten-component>
-    <div class="product">
-        
-        <div class="product-image">
-            <img :src="image" />
-        </div>
-
-        <div class="product-info">
-            <h1>{{ cat }}</h1>
-            <p>{{ description }}</p>
-            <p v-if="adoptable">You can adopt me!</p>
-            <p v-else="adoptable">I have a forever home!</p>
-            <a :href="link" target="_blank">Find me and my siblings on Instagram!</a>
-
-            <h4>Hobbies:</h4>
-            <ul>
-                <li v-for="hobby in hobbies">{{ hobby }}</li>
-            </ul>
-
-            <div v-for="(variant, index) in variants" 
-                :key="variant.variantId"
-                class="thumbnail-box"
-                :style="{ backgroundImage: 'url(\'' + variant.variantImage + '\')' }"
-                @mouseover="updatePhoto(index)">
-            </div>
-
-            <button v-on:click="addToBasket"
-                :disabled="!adoptable"
-                :class="{ disabledButton: !adoptable }"> Add to Basket </button>
-            <div class="cart">
-                <p>Basket({{basket}})</p>
-            </div>
-        </div>
-    </div>
+    <kitten-component></kitten-component>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
