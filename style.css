@@ -39,6 +39,14 @@ img {
   margin-top: 5px;
 }
 
+.thumbnail-box {
+  width: 40px;
+  height: 40px;
+  margin-top: 5px;
+  background-size: auto;
+  background-size: 40px 40px;
+}
+
 .cart {
   margin-right: 25px;
   float: right;

@@ -13,12 +13,14 @@ var app = new Vue({
       {
         variantId: 123,
         variantView: "Near",
-        variantImage: "./assets/phyllis_1.JPG"
+        variantImage: "./assets/phyllis_1.JPG",
+        variantColor: "blue"
       },
       {
         variantId: 124,
         variantView: "Far",
-        variantImage: "./assets/phyllis_2.JPG"
+        variantImage: "./assets/phyllis_2.JPG",
+        variantColor: "green"
       }
     ],
     basket: 0
