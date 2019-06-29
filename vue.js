@@ -46,9 +46,7 @@ Vue.component("kitten-component", {
             <button v-on:click="addToBasket"
                 :disabled="!adoptable"
                 :class="{ disabledButton: !adoptable }"> Add to Basket </button>
-            <div class="cart">
-                <p>Basket({{basket}})</p>
-            </div>
+
         </div>
     </div>`,
   data() {
@@ -78,7 +76,11 @@ Vue.component("kitten-component", {
   },
   methods: {
     addToBasket() {
-      this.basket += 1;
+      //   this.basket += 1;
+      this.$emit(
+        "add-to-basket",
+        this.variants[this.selectedVariant].variantId
+      );
     },
     updateColor(index) {
       this.selectedVariant = index;
@@ -93,6 +95,13 @@ Vue.component("kitten-component", {
 var app = new Vue({
   el: "#app",
   data: {
-    catperson: true
+    catperson: true,
+    basket: []
+  },
+  methods: {
+    updateBasket(id) {
+      //   this.basket += 1;
+      this.basket.push(id);
+    }
   }
 });

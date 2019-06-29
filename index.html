@@ -5,8 +5,11 @@
 <body>
 <div class="nav-bar"></div>
 <div id="app">
-    <kitten-component :catperson="catperson"></kitten-component>
-    <kitten-component :catperson="catperson"></kitten-component>
+    <div class="cart">
+        <p>Basket({{basket.length}})</p>
+    </div>
+    <kitten-component :catperson="catperson" @add-to-basket="updateBasket"></kitten-component>
+    <kitten-component :catperson="catperson" @add-to-basket="updateBasket"></kitten-component>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
