@@ -22,14 +22,16 @@
                 <li v-for="hobby in hobbies">{{ hobby }}</li>
             </ul>
 
-            <div v-for="variant in variants" 
+            <div v-for="(variant, index) in variants" 
                 :key="variant.variantId"
                 class="thumbnail-box"
                 :style="{ backgroundImage: 'url(\'' + variant.variantImage + '\')' }"
-                @mouseover="updatePhoto(variant.variantImage)">
+                @mouseover="updatePhoto(index)">
             </div>
 
-            <button v-on:click="addToBasket"> Add to Basket </button>
+            <button v-on:click="addToBasket"
+                :disabled="!adoptable"
+                :class="{ disabledButton: !adoptable }"> Add to Basket </button>
             <div class="cart">
                 <p>Basket({{basket}})</p>
             </div>

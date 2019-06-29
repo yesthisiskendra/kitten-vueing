@@ -5,7 +5,7 @@ var app = new Vue({
   data: {
     cat: "Phyllis",
     description: "Female Kitten",
-    image: "./assets/phyllis_1.JPG",
+    selectedVariant: 0,
     link: "https://www.instagram.com/michaelscottkittenco/",
     adoptable: true,
     hobbies: ["climbing", "napping", "exploring"],
@@ -26,11 +26,16 @@ var app = new Vue({
     basket: 0
   },
   methods: {
-    addToBasket: function() {
+    addToBasket() {
       this.basket += 1;
     },
-    updatePhoto: function(variantImage) {
-      this.image = variantImage;
+    updatePhoto(index) {
+      this.selectedVariant = index;
+    }
+  },
+  computed: {
+    image() {
+      return this.variants[this.selectedVariant].variantImage;
     }
   }
 });
